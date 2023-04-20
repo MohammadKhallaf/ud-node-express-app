@@ -2,11 +2,14 @@
 const express = require("express");
 // const http = require("http"); // to launch the server // replaced with express
 // const bodyParser = require("body-parser"); # deprecated
-
+require("dotenv").config();
 const app = express(); // creates an express-app // request handler
 
-const adminRoutes = require("./routes/admin");
 const errorController = require("./controllers/error");
+
+
+
+const adminRoutes = require("./routes/admin");
 
 /* first define the gloabl used middlewares */
 app.use(express.json());
