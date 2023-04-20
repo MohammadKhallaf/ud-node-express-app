@@ -1,10 +1,8 @@
 const express = require("express");
-const { v4: uuid } = require("uuid");
+const adminsController = require("../controllers/admins");
+
 const router = express.Router();
 
-router.get("/list", (req, res, next) => {
-  res.json({ id: uuid(), a: "d" }).statusCode(200);
-  res.send();
-});
+router.get("/list", adminsController.listAllAdmins);
 
 module.exports = router; // export here and require in the app file

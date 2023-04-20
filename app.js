@@ -5,12 +5,13 @@ const express = require("express");
 
 const app = express(); // creates an express-app // request handler
 
-const adminRouter = require("./routes/admin");
+const adminRoutes = require("./routes/admin");
+const errorController = require("./controllers/error");
 
 /* first define the gloabl used middlewares */
 app.use(express.json());
 
-app.use("/admin", adminRouter); // adding path in first to filter the requests that will be sent to that router
+app.use("/admin", adminRoutes); // adding path in first to filter the requests that will be sent to that router
 
 app.use((req, res, next) => {
   // middleware declaration
@@ -20,11 +21,7 @@ app.use((req, res, next) => {
 });
 
 // catch all request
-app.use("/", (req, res, next) => {
-  // have to come at last to not overcome the previous calls
-  res.status(404);
-  res.send();
-});
+app.use("/", errorController.get404);
 
 // const server = http.createServer(app);
 app.listen(3000); // replaces http.createServer(app);
