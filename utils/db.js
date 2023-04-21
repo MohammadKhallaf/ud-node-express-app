@@ -1,4 +1,5 @@
-const mysql = require("mysql2");
+// const mysql = require("mysql2"); // is integrated within sequelize
+const Sequelize = require("sequelize");
 
 // close the connect after the query is done
 // instead of mush operations of open-query-close -> use a pool
@@ -9,6 +10,17 @@ const dbConfig = {
   password: process.env.DB_PASSWORD,
 };
 
-const pool = mysql.createPool(dbConfig);
+// const pool = mysql.createPool(dbConfig); // old method of handling SQL manually
 
-module.exports = pool.promise();
+const sequelize = new Sequelize(
+  "ud-node-course",
+  "root",
+  process.env.DB_PASSWORD,
+  {
+    host: "localhost",
+    dialect: "mysql",
+  }
+);
+
+// module.exports = pool.promise();
+module.exports = sequelize;

@@ -6,16 +6,18 @@ require("dotenv").config();
 const app = express(); // creates an express-app // request handler
 
 const errorController = require("./controllers/error");
-
-
+const sequelize = require("./utils/db");
 
 const adminRoutes = require("./routes/admin");
+const authRoutes = require("./routes/auth");
+const User = require("./models/user");
+const Role = require("./models/role");
 
 /* first define the gloabl used middlewares */
 app.use(express.json());
 
 app.use("/admin", adminRoutes); // adding path in first to filter the requests that will be sent to that router
-
+app.use("/auth", authRoutes);
 app.use((req, res, next) => {
   // middleware declaration
   console.log("Inside Middleware");
@@ -24,10 +26,28 @@ app.use((req, res, next) => {
 });
 
 // catch all request
-app.use("/", errorController.get404);
+app.use(errorController.get404);
+
+// Define the association between User and Role
+User.belongsTo(Role, {
+  foreignKey: "role_id",
+  constraints: true,
+  onDelete: "CASCADE",
+});
+
+// Role.hasMany(User, { foreignKey: "role_id" }); // optional as replacement to the previous statement
+
+sequelize
+  .sync({ 
+    force: true // forces the drop and override the DB //! don't do that on production
+  }) // sync modals to databases
+  .then((res) => {
+    console.log(res);
+    app.listen(3000); // replaces http.createServer(app);
+  })
+  .catch((err) => console.log(err));
 
 // const server = http.createServer(app);
-app.listen(3000); // replaces http.createServer(app);
 
 /* general notes */
 

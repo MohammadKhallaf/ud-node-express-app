@@ -1,3 +1,17 @@
+const Sequelize = require("sequelize");
+const sequelize = require("../utils/db");
+
+// const Admin = sequelize.define("admin", {
+//   id: {
+//     type: Sequelize.INTEGER.UNSIGNED,
+//     autoIncrement: true,
+//     primaryKey: true,
+//     allowNull: false,
+//   },
+//   // user_id:Sequelize.}
+// });
+
+/* old code
 const { v4: uuid } = require("uuid");
 const db = require("../utils/db");
 
@@ -27,3 +41,4 @@ class Admin {
 }
 
 module.exports = Admin;
+*/
