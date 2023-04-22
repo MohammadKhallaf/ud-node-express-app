@@ -1,7 +1,8 @@
-const { v4: uuid } = require("uuid");
-const Admin = require("../models/admin");
+// const Admin = require("../models/admin");
 
-exports.listAllAdmins = (req, res, next) => {
+import Admin from "../models/admin.js";
+
+const listAllAdmins = (req, res, next) => {
   Admin.fetchAll().then(([rows, metaData]) => {
     res.status(200);
     res.json(rows);
@@ -9,10 +10,15 @@ exports.listAllAdmins = (req, res, next) => {
   });
 };
 
-exports.addAdmin = (req, res, next) => {
+const addAdmin = (req, res, next) => {
   console.log(req.body);
   const newAdmin = new Admin(req.body.title);
   newAdmin.save();
   res.redirect("/list");
   next();
+};
+
+export default {
+  addAdmin,
+  listAllAdmins,
 };

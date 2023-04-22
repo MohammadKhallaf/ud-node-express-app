@@ -1,6 +1,9 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../utils/db");
-const Role = require("./role");
+// const Sequelize = require("sequelize");
+// const sequelize = require("../utils/db");
+// const Role = require("./role");
+import Sequelize from "sequelize";
+import sequelize from "../utils/db.js";
+import Role from "./role.js";
 
 const User = sequelize.define("user", {
   id: {
@@ -39,4 +42,4 @@ const User = sequelize.define("user", {
   imageUrl: Sequelize.STRING,
 });
 
-module.exports = User;
+export default User;

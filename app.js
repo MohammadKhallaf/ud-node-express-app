@@ -1,17 +1,27 @@
 // root file
-const express = require("express");
+// const express = require("express");
 // const http = require("http"); // to launch the server // replaced with express
 // const bodyParser = require("body-parser"); # deprecated
-require("dotenv").config();
+
+import "dotenv/config.js"; // this should be called first to enable reading from env files
+
+import express from "express";
+import { get404 } from "./controllers/error.js";
+import Role from "./models/role.js";
+import User from "./models/user.js";
+import adminRoutes from "./routes/admin.js";
+import authRoutes from "./routes/auth.js";
+import sequelize from "./utils/db.js";
+
 const app = express(); // creates an express-app // request handler
 
-const errorController = require("./controllers/error");
-const sequelize = require("./utils/db");
+// const errorController = require("./controllers/error");
+// const sequelize = require("./utils/db");
 
-const adminRoutes = require("./routes/admin");
-const authRoutes = require("./routes/auth");
-const User = require("./models/user");
-const Role = require("./models/role");
+// const adminRoutes = require("./routes/admin");
+// const authRoutes = require("./routes/auth");
+// const User = require("./models/user");
+// const Role = require("./models/role");
 
 /* first define the gloabl used middlewares */
 app.use(express.json());
@@ -26,7 +36,7 @@ app.use((req, res, next) => {
 });
 
 // catch all request
-app.use(errorController.get404);
+app.use(get404);
 
 // Define the association between User and Role
 User.belongsTo(Role, {
@@ -38,7 +48,7 @@ User.belongsTo(Role, {
 // Role.hasMany(User, { foreignKey: "role_id" }); // optional as replacement to the previous statement
 
 sequelize
-  .sync({ 
+  .sync({
     // force: true // forces the drop and override the DB //! don't do that on production
   }) // sync modals to databases
   .then((res) => {

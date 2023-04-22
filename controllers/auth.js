@@ -1,8 +1,11 @@
-const { validationResult, matchedData } = require("express-validator");
-const Role = require("../models/role");
-const User = require("../models/user");
+// const { validationResult, matchedData } = require("express-validator");
+// const Role = require("../models/role");
+// const User = require("../models/user");
+import { validationResult, matchedData } from "express-validator";
+import Role from "../models/role.js";
+import User from "../models/user.js";
 
-exports.createUser = (req, res, next) => {
+const createUser = (req, res, next) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
     console.log(result.errors);
@@ -24,7 +27,7 @@ exports.createUser = (req, res, next) => {
     });
 };
 
-exports.createRole = (req, res, next) => {
+const createRole = (req, res, next) => {
   Role.create({
     name: req.body.name.toLowerCase(),
   })
@@ -38,4 +41,9 @@ exports.createRole = (req, res, next) => {
       res.status(409);
       res.send(err);
     });
+};
+
+export default {
+  createRole,
+  createUser,
 };

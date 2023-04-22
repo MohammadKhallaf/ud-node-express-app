@@ -1,15 +1,17 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../utils/db");
+// const Sequelize = require("sequelize");
+// const sequelize = require("../utils/db");
+import Sequelize from "sequelize";
+import sequelize from "../utils/db.js";
 
-// const Admin = sequelize.define("admin", {
-//   id: {
-//     type: Sequelize.INTEGER.UNSIGNED,
-//     autoIncrement: true,
-//     primaryKey: true,
-//     allowNull: false,
-//   },
-//   // user_id:Sequelize.}
-// });
+const Admin = sequelize.define("admin", {
+  id: {
+    type: Sequelize.INTEGER.UNSIGNED,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false,
+  },
+  // user_id:Sequelize.}
+});
 
 /* old code
 const { v4: uuid } = require("uuid");
@@ -42,3 +44,4 @@ class Admin {
 
 module.exports = Admin;
 */
+export default Admin;

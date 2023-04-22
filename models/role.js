@@ -1,5 +1,7 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../utils/db");
+// const Sequelize = require("sequelize");
+// const sequelize = require("../utils/db");
+import Sequelize from "sequelize";
+import sequelize from "../utils/db.js";
 
 const Role = sequelize.define("role", {
   id: {
@@ -15,4 +17,4 @@ const Role = sequelize.define("role", {
   },
 });
 
-module.exports = Role;
+export default Role;
