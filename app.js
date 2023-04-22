@@ -39,10 +39,10 @@ User.belongsTo(Role, {
 
 sequelize
   .sync({ 
-    force: true // forces the drop and override the DB //! don't do that on production
+    // force: true // forces the drop and override the DB //! don't do that on production
   }) // sync modals to databases
   .then((res) => {
-    console.log(res);
+    // console.log(res);
     app.listen(3000); // replaces http.createServer(app);
   })
   .catch((err) => console.log(err));
